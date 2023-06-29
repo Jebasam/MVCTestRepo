@@ -1,0 +1,83 @@
+﻿@model CBSEditor.Models.CKEditorModel
+@{
+    Layout = null;
+}
+@{
+    HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+}
+<script src="~/ckeditor/ckeditor.js"></script>
+<h3>@ViewBag.Result</h3>
+<div id="viewContent">
+    @if (ViewBag.StudentData == null)
+    {
+        using (Html.BeginForm(null, null, FormMethod.Post, new { id = "CKEditorForm" }))
+        {
+            <div id="studentFormDiv" class="studentForm">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.emailName)
+                                @Html.EditorFor(model => model.emailName)
+                                @Html.ValidationMessageFor(model => model.emailName)
+                            </td>
+                        </tr>
+                        @{
+                            #region Commented ByJeba
+                            @*<tr>
+                                    <td>
+                                        @Html.LabelFor(model => model.TemplateDescription)
+                                        @Html.TextAreaFor(model => model.TemplateDescription)
+                                        @Html.ValidationMessageFor(model => model.TemplateDescription)
+                                        <script type="text/javascript" language="javascript">
+                                            CKEDITOR.replace(@Html.IdFor(model => model.TemplateDescription));
+                                        </script>
+                                    </td>
+                                </tr>
+                                <tr><td colspan="2"><button id="submitButton">Submit</button></td></tr>*@
+                            #endregion
+                        }
+                    </tbody>
+                </table>
+                <div>
+                    <div>
+                        @Html.LabelFor(model => model.emailContent)
+                        @Html.TextAreaFor(model => model.emailContent)
+                        @Html.ValidationMessageFor(model => model.emailContent)
+                        <script type="text/javascript" language="javascript">
+                                    CKEDITOR.replace(@Html.IdFor(model => model.emailContent), {
+                                        height: 400,
+                                        filebrowserImageUploadUrl: '/Home/uploadck'
+                                        //filebrowserImageUploadUrl: '/FileUpload/UploadFiles'
+                                    });
+                        </script>
+                    </div>
+                </div>
+                <div><div colspan="2"><button id="submitButton">Submit</button></div></div>
+            </div> 
+        }
+    }
+    else
+    {
+        <div id="studentDataDiv" class="studentForm">
+            @(new HtmlString(ViewBag.StudentData))
+        </div>
+
+        using (Html.BeginForm("Edit", "CKEditor"))
+        {
+            <button>Edit</button>
+        }
+    }
+</div>
+@Scripts.Render("~/jQuery")
+@Scripts.Render("~/jQueryValidate")
+@Scripts.Render("~/Unobtrusive")
+<script>
+    $(document).ready(function () {
+        $("#submitButton").click(function () {
+            CKEDITOR.instances["description"].updateElement();
+            $("#description").show();
+        });
+    });
+</script>

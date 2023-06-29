@@ -1,0 +1,111 @@
+﻿@model CBSEditor.Models.FileUploadModel
+<html lang="en">
+<head>
+    @*<meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">*@
+    <title>Advanced Text Editor</title>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    @*<script src="~/ckeditor/styles.js"></script>*@
+    @*<script src="~/ckeditor/adapters/jquery.js"></script>*@
+    @*<script src="~/ckeditor/config.js"></script>
+        <script src="~/ckeditor/build-config.js"></script>
+        <script src="~/ckeditor/adapters/jquery.js"></script>*@
+    @*<script src="~/tinymce/tinymce.min.js"></script>
+        <script>
+            tinymce.init({
+                selector: 'textarea#default',
+                width: 1000,
+                height: 300,
+                //plugins: [
+                //    'accordion', 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                //    'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
+                //    'table', 'emoticons', 'template', 'codesample'
+                //],
+                plugins: [
+                    'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                    'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
+                    'table', 'emoticons', 'template', 'codesample'
+                ],
+                toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify | ' +
+                    'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                    'forecolor backcolor emoticons',
+                menu: {
+                    favs: { title: 'Menu', items: 'code visualaid | searchreplace | emoticons' }
+                },
+
+                //menubar: 'favs file edit view insert format tools table',
+                //content_style: 'body { font-family: Helvetica, Arial, sans-serif; font-size: 16px; }'
+
+                menubar: 'favs file edit view insert format tools table',
+                content_style: 'body { font-family: Helvetica, Arial, sans-serif; font-size: 16px; }'
+            });
+        </script>*@
+
+    
+</head>
+<body>
+
+    <form action="Home/UploadCK" method="post">
+        <textarea id="txteditor" class="ckeditor"></textarea>
+        <input type="submit" value="Submit">
+
+
+        @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Upload" class="btn btn-primary" />
+                </div>
+            </div>*@
+    </form>
+
+    @*@using (Html.BeginForm("UploadFiles", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.file, "Select Image", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                        @Html.ValidationMessageFor(model => model.file, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Upload" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10 text-success">
+                        @ViewBag.FileStatus
+                    </div>
+                </div>
+            </div>
+        }*@
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+
+            CKEDITOR.replace('txteditor', {
+                height: 400,
+                //filebrowserImageUploadUrl: '/Editor/UploadedImages',
+                extraPlugins: 'image2,uploadimage,filereader',
+                imageUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json'
+            });
+
+            //CKEDITOR.replace('txteditor', {
+
+            //    extraPlugins = 'uploadimage',
+            //    height: 400,
+            //    imageUploadUrl: '/home/uploadck'
+            //});
+        });
+    </script>*@
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+</body>
+</html>

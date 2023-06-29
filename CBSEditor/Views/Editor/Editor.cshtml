@@ -1,0 +1,41 @@
+﻿
+<script src="~/tinymce/tinymce.min.js"></script>
+<h2 style="margin-left:250px;">Add Message</h2>
+<div class="container col-md-8">
+    <form enctype="multipart/form-data" method="post">
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" name="title" id="title" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea name="message" id="message" class="form-control"></textarea>
+        </div>
+        <div class="btn-group" style="margin-top:20px;">
+            <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script>
+        
+        tinymce.init({
+            selector: 'textarea#message',
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+                'media', 'table', 'emoticons', 'template', 'help'
+            ],
+            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                'forecolor backcolor emoticons | help',
+            menu: {
+                favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+            },
+            menubar: 'favs file edit view insert format tools table help',
+            content_css: 'css/content.css',
+            images_upload_url: '/Editor/TinyMceUpload'
+        });
+
+    </script>
+}

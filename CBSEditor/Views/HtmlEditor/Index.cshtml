@@ -1,0 +1,29 @@
+﻿@model CBSEditor.Models.EditorModel
+
+@{
+    Layout = null;
+}
+
+
+<script>
+    $(document).ready(function () {
+        // Get the textarea element
+        var textarea = document.getElementById('editor');
+
+        // Enable the contentEditable property for the textarea
+        textarea.contentEditable = true;
+
+        // Bind the 'input' event to update the textarea value with the edited HTML content
+        textarea.addEventListener('input', function () {
+            textarea.value = textarea.innerHTML;
+        });
+    });
+
+</script>
+<h1>HTML Editor</h1>
+
+@using (Html.BeginForm("SaveEditorContent", "HtmlEditor", FormMethod.Post))
+{
+<textarea id="editor" name="EditorContent" rows="10" cols="50">@Model.EditorContent</textarea>
+    <button type="submit">Save</button>
+}
